@@ -1,7 +1,7 @@
 const { Authflow } = require('prismarine-auth') 
 const { RealmAPI } = require('prismarine-realms')
 const userIdentifier = 'any unique identifier'
-const cacheDir = './' 
+const cacheDir = './logincache';
 const authflow = new Authflow(userIdentifier, cacheDir)
 
 const api = RealmAPI.from(authflow, 'java') // or 'bedrock'

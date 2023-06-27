@@ -4,7 +4,7 @@ const { RealmAPI } = require('prismarine-realms');
 const { realmId } = require('../../config.json');
 
 const userIdentifier = 'any unique identifier';
-const cacheDir = './';
+const cacheDir = './logincache';
 const authflow = new Authflow(userIdentifier, cacheDir);
 
 const api = RealmAPI.from(authflow, 'java');
