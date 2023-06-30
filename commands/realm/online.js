@@ -2,13 +2,10 @@ const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require('discor
 const { Authflow } = require('prismarine-auth');
 const { RealmAPI } = require('prismarine-realms');
 const { realmId } = require('../../config.json');
-
-const userIdentifier = 'any unique identifier';
-const cacheDir = './logincache';
-const authflow = new Authflow(userIdentifier, cacheDir);
-
+const config = require('../../config.json');
+const isLoggedIn = require("../../cache.js");
+const authflow = new Authflow(config.userIdentifier, config.cacheDir);
 const api = RealmAPI.from(authflow, 'java');
-
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,6 +14,9 @@ module.exports = {
   
     async execute(interaction) {
       try {
+        if (!isLoggedIn(config.cacheDir)) {
+          return interaction.reply('You are not logged in. Please run the `/login` command.');
+        }
         const realm = await api.getRealm(realmId);
         const players = realm.players;
   
