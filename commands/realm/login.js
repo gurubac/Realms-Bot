@@ -2,7 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { Authflow } = require("prismarine-auth");
 const { RealmAPI } = require("prismarine-realms");
 const fs = require("node:fs");
-const config = require('../../config.json');
+const config = require("../../config.json");
 const isLoggedIn = require("../../cache.js");
 
 module.exports = {
@@ -10,9 +10,9 @@ module.exports = {
 
 	execute(interaction) {
 		try {
-      if (isLoggedIn(config.cacheDir)) {
-        return interaction.reply("You are already logged in. adsf");
-      }
+			if (isLoggedIn(config.cacheDir)) {
+				return interaction.reply("You are already logged in. adsf");
+			}
 
 			// Create a Promise to resolve with the intermediate token
 			const getTokenPromise = new Promise((resolve) => {
@@ -21,7 +21,7 @@ module.exports = {
 					config.cacheDir,
 					undefined,
 					(res) => {
-            console.log(res);
+						console.log(res);
 						resolve(res);
 					}
 				);
@@ -42,13 +42,13 @@ module.exports = {
 							name: "Instructions",
 							value: userCodeResponse.message,
 							inline: false,
-						},
-            // test later
-            // {
-            //   name: "Expires in",
-            //   value: `${userCodeResponse.expiresIn.toString() / 60} minutes`,
-            //   inline: true,
-            // }
+						}
+						// test later
+						// {
+						//   name: "Expires in",
+						//   value: `${userCodeResponse.expiresIn.toString() / 60} minutes`,
+						//   inline: true,
+						// }
 					);
 				return interaction.reply({
 					embeds: [embed],
