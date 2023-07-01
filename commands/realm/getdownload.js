@@ -22,34 +22,15 @@ module.exports = {
 				);
 			}
             
-            api.getRealmWorldDownload(`${config.realmId}`, "1").then((res) => {
-				try {
-					interaction.reply(`[Download](${res.downloadUrl})`);
-				} catch (error) {
-					console.error(error);
-					interaction.reply("An error has occurred while trying to generate the download URL. Please refer to logs.");
-				}
-            });
-			// api.getRealms().then((realms) => {
-			// 	const embed = new EmbedBuilder().setTitle("Realms Information");
+			//needs to be changed to support multiple realms
+			const { downloadUrl } = await api.getRealmWorldDownload(`${config.realmId}`, "1");
 
-			// 	realms.forEach((realm, index) => {
-			// 		embed.addFields(
-			// 			{
-			// 				name: `Realm: ${realm.name}`,
-			// 				value: `Realm ID: ${realm.id}\nName: ${realm.name}\nOwner: ${realm.owner}\nMOTD: ${realm.motd}\nState: ${realm.state}\nMax Players: ${realm.maxPlayers}\nDays Left: ${realm.daysLeft}`,
-			// 			}
-			// 			// Add more fields or customize the format as needed
-			// 		);
-			// 	});
-
-			// 	return interaction.reply({ embeds: [embed] });
-			// });
+			const embed = new EmbedBuilder().setTitle("Download URL").setURL(`${downloadUrl}`).setFooter({text: "This URL is from the official Microsoft website."});
+			return interaction.reply({ embeds: [embed] });			
 		} catch (error) {
 			console.error(error);
-            return interaction.reply(
-                "An error occurred while generating the realm download..."
-			);
+            interaction.reply("An error has occurred while trying to generate the download URL. Please refer to logs.");
+
 		}
 	},
 };
