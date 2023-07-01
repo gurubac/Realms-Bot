@@ -15,7 +15,7 @@ module.exports = {
 			}
 
 			// Create a Promise to resolve with the intermediate token
-			const getTokenPromise = new Promise((resolve) => {
+			const getTokenPromise = new Promise(async (resolve) => {
 				const authflow = new Authflow(
 					config.userIdentifier,
 					config.cacheDir,
@@ -25,7 +25,8 @@ module.exports = {
 						resolve(res);
 					}
 				);
-				authflow.getMsaToken();
+				await authflow.getMsaToken();
+				interaction.editReply({embeds: [], content: "Successfully logged in!"});
 			});
 
 			// Wait for the promise to resolve and obtain the intermediate token
