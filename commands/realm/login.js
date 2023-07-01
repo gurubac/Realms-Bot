@@ -11,7 +11,7 @@ module.exports = {
 	execute(interaction) {
 		try {
 			if (isLoggedIn(config.cacheDir)) {
-				return interaction.reply("You are already logged in. adsf");
+				return interaction.reply("You are already logged in.");
 			}
 
 			// Create a Promise to resolve with the intermediate token
@@ -21,7 +21,7 @@ module.exports = {
 					config.cacheDir,
 					undefined,
 					(res) => {
-						console.log(res);
+						// console.log(res);
 						resolve(res);
 					}
 				);
