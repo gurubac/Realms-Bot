@@ -16,22 +16,21 @@ module.exports = {
   
     async execute(interaction) {
       try {
-        const realm = await api.getRealm(realmId);
-        console.log(realm);
+        const {name, motd, owner, id, daysLeft, worldType, gracePeriod, players, maxPlayers} = await api.getRealm(realmId);
   
         // Create an embed and set the owner's image as an attachment
         const embed = new EmbedBuilder()
           .setTitle('Realm Information')
           .addFields(
-            { name: 'Name', value: realm.name.toString(), inline: true },
-            { name: 'Motd', value: realm.motd.toString(), inline: true },
-            { name: 'Owner', value: realm.owner.toString() },
-            { name: 'Realm ID', value: realm.id.toString() },
-            { name: 'Days of subscription left', value: realm.daysLeft.toString() },
-            { name: 'World Type', value: realm.worldType.toString() },
-            { name: 'Grace Period', value: realm.gracePeriod.toString() },
-            { name: 'Players Online', value: realm.players.filter((player) => player.online).length.toString() },
-            { name: 'Max Players', value: realm.maxPlayers.toString() }
+            { name: 'Name', value: name, inline: true },
+            { name: 'Motd', value: motd, inline: true },
+            { name: 'Owner', value: owner },
+            { name: 'Realm ID', value: `${id}` },
+            { name: 'Days of subscription left', value: `${daysLeft}` },
+            { name: 'World Type', value: worldType },
+            { name: 'Grace Period', value: `${gracePeriod}` },
+            { name: 'Players Online', value: players.filter((player) => player.online).length.toString() },
+            { name: 'Max Players', value: `${maxPlayers}` }
           )
   
         // Reply with the embed and image buffer as an attachment
