@@ -17,8 +17,7 @@ module.exports = {
         if (!isLoggedIn(config.cacheDir)) {
           return interaction.reply('You are not logged in. Please run the `/login` command.');
         }
-        const realm = await api.getRealm(realmId);
-        const players = realm.players;
+        const {players} = await api.getRealm(realmId);
   
         // Filter online players
         const onlinePlayers = players.filter((player) => player.online);
