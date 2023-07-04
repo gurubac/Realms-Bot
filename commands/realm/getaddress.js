@@ -23,14 +23,15 @@ module.exports = {
 					"You are not logged in. Please run the `/login` command."
 				);
 			}
-			const RealmAddress = await api.getRealmAddress(realmId);
+			const { host, port } = await api.getRealmAddress(realmId);
+			
 
 			// Create an embed and set the owner's image as an attachment
 			const embed = new EmbedBuilder()
 				.setTitle("Realm Address")
 				.addFields(
-					{ name: "Host", value: RealmAddress.host.toString(), inline: true },
-					{ name: "Port", value: RealmAddress.port.toString(), inline: true }
+					{ name: "Host", value: host, inline: true },
+					{ name: "Port", value: `${port}`, inline: true }
 				);
 
 			// Reply with the embed and image buffer as an attachment

@@ -26,11 +26,11 @@ module.exports = {
 			api.getRealms().then((realms) => {
 				const embed = new EmbedBuilder().setTitle("Realms Information");
 
-				realms.forEach((realm, index) => {
+				realms.forEach(({name, id, owner, motd, state, maxPlayers, daysLeft}, index) => {
 					embed.addFields(
 						{
-							name: `Realm: ${realm.name}`,
-							value: `Realm ID: ${realm.id}\nName: ${realm.name}\nOwner: ${realm.owner}\nMOTD: ${realm.motd}\nState: ${realm.state}\nMax Players: ${realm.maxPlayers}\nDays Left: ${realm.daysLeft}`,
+							name: `Realm: ${name}`,
+							value: `ID: ${id}\nOwner: ${owner}\nMOTD: ${motd}\nState: ${state}\nMax Players: ${maxPlayers}\nDays Left: ${daysLeft}`,
 						}
 						// Add more fields or customize the format as needed
 					);
