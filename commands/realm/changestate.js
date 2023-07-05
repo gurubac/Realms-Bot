@@ -45,13 +45,6 @@ module.exports = {
 				console.error(error);
 				return interaction.reply("You have insufficient permissions to change the state of this Realm. Ensure you are the owner.");
 			}
-
-
-			//needs to be changed to support multiple realms
-			// const { downloadUrl } = await api.getRealmWorldDownload(`${config.realmId}`, "1");
-
-			// const embed = new EmbedBuilder().setTitle("Download URL").setURL(`${downloadUrl}`).setFooter({text: "This URL is from the official Microsoft website."});
-			// return interaction.reply({ embeds: [embed] });			
 		} catch (error) {
 			console.error(error);
 			return interaction.reply("An error has occurred while executing this command. Please check logs.");
