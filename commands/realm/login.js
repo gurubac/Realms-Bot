@@ -4,6 +4,14 @@ const { RealmAPI } = require("prismarine-realms");
 const fs = require("node:fs");
 const config = require("../../config.json");
 const isLoggedIn = require("../../cache.js");
+const InMemoryCache = require("../../classes/Cache.js");
+
+
+let cacheObject = {
+	username: "a",
+	cacheName: "a",
+}
+const cacheFactory = () => new InMemoryCache()
 
 module.exports = {
 	data: new SlashCommandBuilder().setName("login").setDescription("Login mc."),
@@ -18,7 +26,7 @@ module.exports = {
 			const getTokenPromise = new Promise(async (resolve) => {
 				const authflow = new Authflow(
 					config.userIdentifier,
-					config.cacheDir,
+					cacheFactory,
 					undefined,
 					(res) => {
 						// console.log(res);
