@@ -1,9 +1,9 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { Authflow } = require("prismarine-auth");
 const { RealmAPI } = require("prismarine-realms");
-const config = require("../../config.json");
-const isLoggedIn = require("../../cache.js");
-const authflow = new Authflow(config.userIdentifier, config.cacheDir);
+const { realmId, userIdentifier, cacheDir } = require("../../../config.json");
+const isLoggedIn = require("../../../cache.js");
+const authflow = new Authflow(userIdentifier, cacheDir);
 const api = RealmAPI.from(authflow, "java");
 
 module.exports = {
@@ -13,13 +13,13 @@ module.exports = {
 
 	async execute(interaction) {
 		try {
-			if (!isLoggedIn(config.cacheDir)) {
+			if (!isLoggedIn(cacheDir)) {
 				return interaction.reply(
 					"You are not logged in. Please run the `/login` command."
 				);
 			}
 
-			await api.getRealmBackups(`${config.realmId}`).then(async (backups) => {
+			await api.getRealmBackups(`${realmId}`).then(async (backups) => {
 				const embed = new EmbedBuilder()
 					.setTitle("Realm Backups")
 					.setDescription("List of all backups");
@@ -36,7 +36,7 @@ module.exports = {
 							value: `${lastModifiedDate}`,
 							inline: true,
 						},
-            { name: "\u200B", value: "\u200B"}
+						{ name: "\u200B", value: "\u200B" }
 					);
 				}
 				return interaction.reply({ embeds: [embed] });

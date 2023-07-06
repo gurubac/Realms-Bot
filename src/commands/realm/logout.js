@@ -2,9 +2,9 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { Authflow } = require("prismarine-auth");
 const { RealmAPI } = require("prismarine-realms");
 const fs = require("node:fs");
-const config = require("../../config.json");
-const isLoggedIn = require("../../cache.js");
-const authflow = new Authflow(config.userIdentifier, config.cacheDir);
+const { userIdentifier, cacheDir } = require("../../../config.json");
+const isLoggedIn = require("../../../cache.js");
+const authflow = new Authflow(userIdentifier, cacheDir);
 
 function resetTokenCaches(cache) {
 	if (!cache) throw new Error("You must provide a cache directory to reset.");
@@ -26,11 +26,11 @@ module.exports = {
 
 	execute(interaction) {
 		try {
-			if (!isLoggedIn(config.cacheDir)) {
+			if (!isLoggedIn(cacheDir)) {
 				return interaction.reply("You are already logged out.");
 			}
 
-			if (resetTokenCaches(config.cacheDir)) {
+			if (resetTokenCaches(cacheDir)) {
 				return interaction.reply("Logout Successful.");
 			} else {
 				return interaction.reply("Failed to clear cache.");

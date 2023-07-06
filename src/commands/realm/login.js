@@ -2,8 +2,8 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { Authflow } = require("prismarine-auth");
 const { RealmAPI } = require("prismarine-realms");
 const fs = require("node:fs");
-const config = require("../../config.json");
-const isLoggedIn = require("../../cache.js");
+const { cacheDir, userIdentifier } = require("../../../config.json");
+const isLoggedIn = require("../../../cache.js");
 const InMemoryCache = require("../../classes/Cache.js");
 
 
@@ -18,14 +18,14 @@ module.exports = {
 
 	execute(interaction) {
 		try {
-			if (isLoggedIn(config.cacheDir)) {
+			if (isLoggedIn(cacheDir)) {
 				return interaction.reply("You are already logged in.");
 			}
 
 			// Create a Promise to resolve with the intermediate token
 			const getTokenPromise = new Promise(async (resolve) => {
 				const authflow = new Authflow(
-					config.userIdentifier,
+					userIdentifier,
 					cacheFactory,
 					undefined,
 					(res) => {
@@ -34,7 +34,7 @@ module.exports = {
 					}
 				);
 				await authflow.getMsaToken();
-				interaction.editReply({embeds: [], content: "Successfully logged in!"});
+				interaction.editReply({ embeds: [], content: "Successfully logged in!" });
 			});
 
 			// Wait for the promise to resolve and obtain the intermediate token

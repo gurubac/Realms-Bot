@@ -1,10 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder, AttachmentBuilder } = require('discord.js');
 const { Authflow } = require('prismarine-auth');
 const { RealmAPI } = require('prismarine-realms');
-const { realmId } = require('../../config.json');
-
-const userIdentifier = 'any unique identifier';
-const cacheDir = './logincache';
+const { realmId, userIdentifier, cacheDir } = require('../../../config.json');
 const authflow = new Authflow(userIdentifier, cacheDir);
 
 const api = RealmAPI.from(authflow, 'java');
@@ -16,6 +13,10 @@ module.exports = {
 
   async execute(interaction) {
     try {
+
+
+      // const 
+      //   console.log(cache);
       const { name, motd, state, owner, id, daysLeft, worldType, gracePeriod, players, maxPlayers } = await api.getRealm(realmId);
 
       // Create an embed and set the owner's image as an attachment
