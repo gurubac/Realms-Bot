@@ -1,16 +1,19 @@
+const path = require("path");
 require('dotenv').config({
-    path: "../../.env",
+    path: path.join(__dirname, "../../.env"),
 })
 const { Sequelize } = require("sequelize");
 
+console.log(path.join(__dirname, "../../.env"));
+
 const sequelize = new Sequelize({
     dialect: "postgres",
-    database: process.DATABASE_NAME,
-    host: process.DATABASE_HOST,
-    port: process.DATABASE_PORT,
-    username: process.DATABASE_USERNAME,
-    password: process.DATABASE_PASSWORD,
-    schema: process.DATABASE_SCHEMA
+    database: process.env.DATABASE_NAME,
+    host: process.env.DATABASE_HOST,
+    port: process.env.DATABASE_PORT,
+    username: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
+    // schema: process.DATABASE_SCHEMA
 });
 
 try {
