@@ -1,10 +1,7 @@
-const path = require("path");
 require('dotenv').config({
-    path: path.join(__dirname, "../../.env"),
+    path: "../../.env",
 })
 const { Sequelize } = require("sequelize");
-
-console.log(path.join(__dirname, "../../.env"));
 
 const sequelize = new Sequelize({
     dialect: "postgres",
