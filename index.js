@@ -4,6 +4,7 @@ const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
 const { token } = require("./config.json");
 const db = require("./src/database/Database");
 const models = require("./src/database/models/exportModels");
+const signale = require("signale");
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
@@ -22,8 +23,8 @@ for (const folder of commandFolders) {
     if ("data" in command && "execute" in command) {
       client.commands.set(command.data.name, command);
     } else {
-      console.log(
-        `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
+      console.warn(
+        `The command at ${filePath} is missing a required "data" or "execute" property.`
       );
     }
   }
@@ -38,7 +39,7 @@ async () => {
 };
 
 client.once(Events.ClientReady, () => {
-  console.log("Ready!");
+  signale.success("Bot Ready!");
 });
 
 client.on(Events.InteractionCreate, async (interaction) => {
@@ -67,7 +68,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
     const command = client.commands.get(interaction.commandName);
 
     if (!command) {
-      console.error(
+      signale.error(
         `No command matching ${interaction.commandName} was found.`
       );
       return;
