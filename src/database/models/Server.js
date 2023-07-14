@@ -1,4 +1,5 @@
 const db = require("../Database.js");
+const signale = require("signale");
 const { Model, DataTypes } = require("sequelize");
 
 class Server extends Model {
@@ -19,4 +20,4 @@ Server.init(
   }
 );
 
-// module.exports = Server;
+signale.success("Server Initalized");
