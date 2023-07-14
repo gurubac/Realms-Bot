@@ -6,18 +6,21 @@ class Server extends Model {
   static associate() {}
 }
 
-Server.init(
-  {
-    discordServerID: {
-      type: DataTypes.STRING,
-      unique: true,
+try {
+  Server.init(
+    {
+      discordServerID: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
     },
-  },
-  {
-    paranoid: true,
-    sequelize: db,
-    modelName: "Server",
-  }
-);
-
-signale.success("Server Initalized");
+    {
+      paranoid: true,
+      sequelize: db.sequelize,
+      modelName: "Server",
+    }
+  );
+  signale.success("Server Initalized");
+} catch (error) {
+  signale.error("Couldn't Initialize Server Model: ", error);
+}
