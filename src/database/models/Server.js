@@ -20,7 +20,7 @@ try {
       modelName: "Server",
     }
   );
-  signale.success("Server Initalized");
+  signale.success("Server Model Initalized");
 } catch (error) {
   signale.error("Couldn't Initialize Server Model: ", error);
 }

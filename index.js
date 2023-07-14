@@ -3,19 +3,6 @@ const path = require("node:path");
 const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
 const { token } = require("./config.json");
 const db = require("./src/database/Database");
-// const sequelize = new Database().sequelize;
-// const dbOptions = {
-//   dialect: "postgres",
-//   host: process.env.DATABASE_HOST,
-//   port: process.env.DATABASE_PORT,
-//   schema: process.env.DATABASE_SCHEMA,
-// };
-// const { sequelize } = new Database({
-//   name: process.env.DATABASE_NAME,
-//   username: process.env.DATABASE_USERNAME,
-//   password: process.env.DATABASE_PASSWORD,
-//   options: dbOptions,
-// });
 const models = require("./src/database/models/exportModels");
 const signale = require("signale");
 
