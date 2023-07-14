@@ -7,20 +7,23 @@ class User extends Model {
 }
 
 try {
-  User.init({
-    discordUserID: {
-      type: DataTypes.STRING,
-      unique: true,
+  User.init(
+    {
+      discordUserID: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
+      username: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
+      cache: {
+        type: DataTypes.JSON,
+      },
     },
-    username: {
-      type: DataTypes.STRING,
-      unique: true,
-    },
-    cache: {
-      type: DataTypes.JSON,
-    },
-  });
-    
+    { paranoid: true, sequelize: db.sequelize, modelName: "Server" }
+  );
+
   signale.success("User Model Initalized");
 } catch (error) {
   signale.error("Couldn't Initialize User Model: ", error);

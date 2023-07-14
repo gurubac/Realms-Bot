@@ -25,6 +25,8 @@ class Database {
       signale.error("Database Connection Error: ", error);
     }
   }
+
+  
 }
 
 // try {
