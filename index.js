@@ -35,7 +35,7 @@ async () => {
     models[model].associate(models);
   });
 
-  await db.sequelize.sync({ force: f });
+  await db.sync({ force: f });
 };
 
 client.once(Events.ClientReady, () => {

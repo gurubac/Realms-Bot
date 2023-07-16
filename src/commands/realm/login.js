@@ -4,14 +4,7 @@ const { RealmAPI } = require("prismarine-realms");
 const fs = require("node:fs");
 const { cacheDir, userIdentifier } = require("../../../config.json");
 const isLoggedIn = require("../../../cache.js");
-const InMemoryCache = require("../../classes/Cache.js");
-
-
-let cacheObject = {
-	username: "a",
-	cacheName: "a",
-}
-const cacheFactory = () => new InMemoryCache()
+const Cache = require("../../database/Cache.js");
 
 module.exports = {
 	data: new SlashCommandBuilder().setName("login").setDescription("Login mc."),
@@ -21,11 +14,12 @@ module.exports = {
 			if (isLoggedIn(cacheDir)) {
 				return interaction.reply("You are already logged in.");
 			}
-
+			let cacheFactory = ({ username, cacheName }) =>
+				new Cache(username, cacheName);
 			// Create a Promise to resolve with the intermediate token
 			const getTokenPromise = new Promise(async (resolve) => {
 				const authflow = new Authflow(
-					userIdentifier,
+					`${interaction.user.id}`,
 					cacheFactory,
 					undefined,
 					(res) => {
@@ -34,7 +28,10 @@ module.exports = {
 					}
 				);
 				await authflow.getMsaToken();
-				interaction.editReply({ embeds: [], content: "Successfully logged in!" });
+				interaction.editReply({
+					embeds: [],
+					content: "Successfully logged in!",
+				});
 			});
 
 			// Wait for the promise to resolve and obtain the intermediate token
@@ -52,12 +49,6 @@ module.exports = {
 							value: userCodeResponse.message,
 							inline: false,
 						}
-						// test later
-						// {
-						//   name: "Expires in",
-						//   value: `${userCodeResponse.expiresIn.toString() / 60} minutes`,
-						//   inline: true,
-						// }
 					);
 				return interaction.reply({
 					embeds: [embed],

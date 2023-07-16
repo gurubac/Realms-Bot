@@ -3,28 +3,28 @@ const signale = require("signale");
 const { Model, DataTypes } = require("sequelize");
 
 class User extends Model {
-  static associate() {}
+	static associate() {}
 }
 
 try {
-  User.init(
-    {
-      discordUserID: {
-        type: DataTypes.STRING,
-        unique: true,
-      },
-      username: {
-        type: DataTypes.STRING,
-        unique: true,
-      },
-      cache: {
-        type: DataTypes.JSON,
-      },
-    },
-    { paranoid: true, sequelize: db.sequelize, modelName: "Server" }
-  );
+	User.init(
+		{
+			discordUserID: {
+				type: DataTypes.STRING,
+				unique: true,
+			},
+			username: {
+				type: DataTypes.STRING,
+				unique: true,
+			},
+			cache: {
+				type: DataTypes.JSON,
+			},
+		},
+		{ paranoid: true, sequelize: db.sequelize, modelName: "Server" }
+	);
 
-  signale.success("User Model Initalized");
+	signale.success("User Model Initalized");
 } catch (error) {
-  signale.error("Couldn't Initialize User Model: ", error);
+	signale.error("Couldn't Initialize User Model: ", error);
 }
